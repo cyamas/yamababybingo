@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yama Baby Bingo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js" integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body onload="displayBoard({{ idx }}, {{ xes }})">
+    <div id="bingo-title">
+        <div id="team-title">TEAM: {{ team_name }}</div>
+        <div class="yama-baby">YAMA</div>
+        <button type="button">BINGO!</button>
+        <div class="yama-baby">BABY</div>
+    </div>
+    
+    <div id="board"></div>
+    <div id="game-menu">
+        <a href="https://birdrockbaby.com/collections/fringeless-moccasins/products/black-and-tan-fringeless-moccasins?variant=12536620056654" target="_blank">
+            <div id="selected"></div>
+        </a>
+        <div id="registry"></div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

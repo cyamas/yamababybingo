@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <button id="start-button" onclick="startGame()">START GAME</button>
+    <div id="game-selections">
+        <form method="POST">
+            <button id="next-item-btn" type="submit">NEXT ITEM</button>
+        </form>
+    </div>
+    <div id="curr" value="{{ curr }}"></div>
+    <div id="prev" value="{{ prev }}"></div>
+    <script src="/static/app.js"></script>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js" integrity="sha512-Xm9qbB6Pu06k3PUwPj785dyTl6oHxgsv9nHp7ej7nCpAqGZT3OZpsELuCYX05DdonFpTlBpXMOxjavIAIUwr0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</html>

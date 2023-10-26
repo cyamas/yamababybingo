@@ -1,0 +1,221 @@
+body {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-image: url('bingoBackground.jpg');
+    background-size: cover;
+    background-position: 75% 30%;
+    cursor: url('bigHand.png'),auto;
+}
+
+ #home{
+    width: 100%;
+    display: inline-block;
+    padding-top: 50px;
+ }
+
+#join-form, #create-form{
+    display: none;
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 120px;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+    cursor: auto;
+}
+
+#welcome{
+    width: 100%;
+    font-size: 100px;
+    font-weight: 900;
+    padding-top: 50px;
+}
+
+#home-label{
+    font-size: 28px;
+}
+#password, #team-name{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 24px;
+    text-align: center;
+}
+#submit-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1 px solid #003366;
+}
+#submit{
+    border: 2px solid #75bfec;
+    width: 144px;
+    height: 72px;
+    font-size: 24px;
+    border-radius: 10%;
+}
+#submit:hover{
+    box-shadow: 0px 0px 3px 3px #75bfec;
+    font-size: 26px;
+}
+h1{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 64px;
+}
+
+#team-title{
+    font-size: 20px;
+    padding-top: 0;
+    padding-bottom: 60px;
+}
+
+#bingo-title{
+    width: auto;
+    height: 100%;
+    font-size: 40px;
+    padding-bottom: 260px;
+}
+
+#board{
+    width: 775px;
+    height: 775px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    border-radius: 5%;
+}
+
+#get-card{
+    display: flex;
+    border-radius: 5%;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#card-button{
+    width: 400px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10%;
+}
+
+.square{
+    width: 145px;
+    height: 145px;
+    background-color: white;
+    outline: 1px solid black;
+    border-radius: 5%;
+    margin: 5px;
+    cursor: url('bigHand.png'),auto;
+    transition: 0.3s;
+}
+
+.square:hover{
+    outline: 5px solid lightseagreen;
+}
+
+.yama-baby{
+    font-weight:900;
+}
+
+button{
+    display: flex;
+    width: 320px;
+    height: 320px;
+    border: 5px solid #75bfec;
+    border-radius: 50%;
+    background-color: #b7e9f7;
+    justify-content: center;
+    text-align: center;
+    margin-right: 15px;
+    align-items: center;
+    color: #003366;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 72px;
+    cursor: url('bigHand.png'),auto;
+    transition: 0.5s;
+}
+
+button:hover{
+    border: 3px solid #75bfec;
+    font-size: 84px;
+    box-shadow: 0px 0px 30px 25px #75bfec;
+}
+
+#home-button-menu{
+    display: inline-flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#game-menu{
+    display: inline-block;
+    width: 300px;
+    height: 100%;
+    padding-top: 40px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 110px;
+}
+
+#selected{
+    width: 300px;
+    height: 300px;
+    padding: 0%;
+    background: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 140px;
+    border-radius: 50%;
+    border: 5px solid #75bfec;
+    margin-bottom: 75px;
+    transition: 0.5s;
+}
+
+#selected:hover{
+    box-shadow: 0px 0px 20px 7px #75bfec;
+    background-size: 160px;
+}
+
+#previous{
+    width: 30px;
+}
+
+#registry{
+    width: 240px;
+    height: 240px;
+    background: white;
+    background-size: 100px;
+    background-image: '';
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 5px solid #75bfec;
+    margin-top: 10px;
+    transition: 0.5s;
+}
+
+
+
+#registry:hover{
+    box-shadow: 0px 0px 20px 7px #75bfec;
+    background-size: 120px;
+}
+
+#game-selections{
+    display: none;
+}

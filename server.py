@@ -30,6 +30,7 @@ def action():
     else:
         return join_game(data, session['password'])
 
+#creates session data to store real-time game information for 90 minutes
 def create_game(password):
     session.permanent = True
     session['password'] = password
@@ -41,6 +42,7 @@ def create_game(password):
     session['started'] = False
     return redirect(url_for('host_game'))
 
+#gets password from client and allows a user entrance into the game
 def join_game(data, password):
     if data['password'] == password:
         session['idx'] = make_bingo_card()
@@ -48,11 +50,10 @@ def join_game(data, password):
         session['xes'] = [0 for i in range(25)]
         print(session)
         return redirect(url_for('play', team_name = data['team-name'],))
-        #return render_template('/bingo.html', idx = make_bingo_card(), team_name = user_input['team-name'])
     else:
         return render_template('/home.html')
 
-
+#generates a random list of integers that will populate the bingo card with images based on their index position
 def make_bingo_card():
     registry_length = len(os.listdir('static/gameImages'))
     idx = random.sample(range(0,registry_length-1), 25)
@@ -66,6 +67,7 @@ def play(team_name):
         session['xes'][int(data['id'])] = int(data['x'])
 
     return render_template('/bingo.html', idx = session['idx'], xes = session['xes'], team_name = team_name)
+
 
 @app.route('/host', methods=['GET', 'POST'])
 def host_game():

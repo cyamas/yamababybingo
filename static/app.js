@@ -227,8 +227,13 @@ const gameItems = [
 
 ]
 
+//Requests new bingo item every second
 setInterval(getItem, 1000);
 
+
+//Generates 5x5 square bingo game board
+//idx is an array of integers that correlate to a specific bingo item image to be displayed on each player's board
+//xes is an array of 0's and 1's indicating if a bingo square has been selected by the player or not
 function displayBoard(idx, xes) {
 
     const board = document.getElementById("board");
@@ -258,22 +263,10 @@ function displayBoard(idx, xes) {
         board.append(square)
     }
 
-
-
-    /*const squares = document.querySelectorAll('.square')
-    squares.forEach((square) => {
-        square.addEventListener("click", () => {
-            if (square.style.color === 'transparent') {
-                square.style.color = 'red';
-            }else {
-                square.style.color = 'transparent';
-            }
-        })
-        
-    })*/
     return
 }
 
+//marks or unmarks a bingo square with a red x when clicked and sends to flask server to be updated in session data
 function postX(square) {
     if (square.style.color === 'red') {
         square.style.color = 'transparent';
@@ -298,6 +291,7 @@ function toggleForm(elem) {
     return
 }
 
+
 function startGame() {
     document.getElementById('start-button').style.display = 'none';
     document.getElementById('game-selections').style.display = "block";
@@ -305,6 +299,7 @@ function startGame() {
     return
 }
 
+//requests the current item and previous item pulled during the round
 function getItem() {
     console.log('this works');
     $.get("/game", function(data, elem) {

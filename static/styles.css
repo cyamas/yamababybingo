@@ -112,8 +112,8 @@ h1{
 }
 
 .square{
-    width: 145px;
-    height: 145px;
+    width: 18%;
+    height: 18%;
     background-color: white;
     outline: 1px solid black;
     border-radius: 5%;
@@ -132,8 +132,8 @@ h1{
 
 button{
     display: flex;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border: 5px solid #75bfec;
     border-radius: 50%;
     background-color: #b7e9f7;
@@ -173,8 +173,8 @@ button:hover{
 }
 
 #selected{
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     padding: 0%;
     background: white;
     background-repeat: no-repeat;

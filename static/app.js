@@ -228,14 +228,14 @@ const gameItems = [
 ]
 
 //Requests new bingo item every second
-setInterval(getItem, 1000);
 
 
 //Generates 5x5 square bingo game board
 //idx is an array of integers that correlate to a specific bingo item image to be displayed on each player's board
 //xes is an array of 0's and 1's indicating if a bingo square has been selected by the player or not
 function displayBoard(idx, xes) {
-
+    connectUser()
+    //document.getElementById("get-board-btn").style.display = 'none';
     const board = document.getElementById("board");
     for (let i = 0; i < 25; i++) {
         const square = document.createElement('div');
@@ -262,7 +262,6 @@ function displayBoard(idx, xes) {
         
         board.append(square)
     }
-
     return
 }
 
@@ -292,29 +291,24 @@ function toggleForm(elem) {
 }
 
 
-function startGame() {
-    document.getElementById('start-button').style.display = 'none';
-    document.getElementById('game-selections').style.display = "block";
-
-    return
-}
-
 //requests the current item and previous item pulled during the round
 function getItem() {
-    console.log('this works');
     $.get("/game", function(data, elem) {
         $("#selected").css("background-image", "url(../" + gameItems[data[0]]["img"] + ")");
         $("#registry").css("background-image", "url(../" + gameItems[data[1]]["img"] + ")");
-        console.log(data);
     })
     return
 }
 
 
 
-function connectPlayer() {
-    const socket = io({autoconnect: false});
-    socket.connect()
+function connectUser() {
+    const socket = io();
+    socket.on('items', (data) => {
+        $("#selected").css("background-image", "url(../" + data[0] + ")");
+        $("#registry").css("background-image", "url(../" + data[1] + ")");
+        return
+    })
     return
 }
 

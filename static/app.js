@@ -6,14 +6,12 @@ for (i=0; i < 25; i++) {currXes.push(0)};
 
 //Server emits image URLS to client for current and previous items drawn  
 socket.on('items', (items) => {
-    console.log(items[0], items[2])
     $("#selected").css("background-image", "url(../" + items[0] + ")");
     $("#registry").css("background-image", "url(../" + items[1] + ")"); 
 })
 
 socket.on('currXes', (xes) => {
     currXes = xes;
-    console.log(xes);
 })
 
 socket.on('winningTeam', (message) => {

@@ -212,12 +212,12 @@
     },
     {
         "name": "PENGUIN TEETHER",
-        "img": "penguinTeether.png",
+        "img": "static/gameImages/penguinTeether.png",
         "link":"https://weegallery.com/collections/teethers/products/organic-teether-penguin"
     },
     {
         "name": "SHORT SLEEVE ONESIES 5-PACK",
-        "img": "shortSleeveOnesiesFivePack.png",
+        "img": "static/gameImages/shortSleeveOnesiesFivePack.png",
         "link":"https://www.babylist.com/gp/burt-s-bees-baby-organic-short-sleeve-bodysuit-5-pack/14427/30951?reg_item_id=473083281&registry_id=7596939"
     },
     {

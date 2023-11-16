@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js" integrity="sha512-Xm9qbB6Pu06k3PUwPj785dyTl6oHxgsv9nHp7ej7nCpAqGZT3OZpsELuCYX05DdonFpTlBpXMOxjavIAIUwr0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
-<body onload="connectUser()">
-    <div id="game-selections">
-        <form method="POST">
-            <button id="next-item-btn" type="submit">NEXT ITEM</button>
-        </form>
+<body onload="connectUser('Host')">
+    <div id="host-menu">
+        <div id="game-selections">
+            <form method="POST">
+                <button id="next-item-btn" type="submit">NEXT ITEM</button>
+            </form>
+        </div>
+        <div id="items-container">
+            <h2>CURRENT ITEM</h2>
+            <div id="host-curr" style="background-image: url('../{{ curr }}');"></div>
+            <h5 id="host-curr-label"> {{ curr_name }}</h5>
+            <h3>PREVIOUS ITEM</h3>
+            <div id="host-prev" style="background-image: url('../{{ prev }}');"></div>
+            <h5 id="host-prev-label"> {{ prev_name }}</h5>
+        </div>
     </div>
-    <div id="curr" value="{{ curr }}"></div>
-    <div id="prev" value="{{ prev }}"></div>
+
+    
     <script src="/static/app.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js" integrity="sha512-Xm9qbB6Pu06k3PUwPj785dyTl6oHxgsv9nHp7ej7nCpAqGZT3OZpsELuCYX05DdonFpTlBpXMOxjavIAIUwr0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </html>

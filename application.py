@@ -13,7 +13,8 @@ application = Flask(__name__)
 
 application.secret_key = 'ybaambay012194'
 
-application.config['REDIS_URL'] = 'redis://bingorediscluster.2rliyy.ng.0001.usw1.cache.amazonaws.com:6379'
+#application.config['REDIS_URL'] = 'redis://bingorediscluster.2rliyy.ng.0001.usw1.cache.amazonaws.com:6379'
+application.config['REDIS_URL'] = 'redis://127.0.0.1:6379'
 
 socketio = SocketIO(application, cors_allowed_origins="*")
 redis = FlaskRedis(application)
@@ -23,7 +24,6 @@ rooms = []
 
 @application.route('/')
 def home():
-    redis.set("room", "empty")
     return render_template('/home.html')
 
 
@@ -31,8 +31,8 @@ def home():
 def action():
     data = request.form.to_dict()
     if data['id'] == 'create':
-        room = redis.get("room").decode('utf-8')
-        if room == "empty":
+        room = redis.exists('room')
+        if not room:
             redis.set("room", data['password'])
         else:
             return render_template('/home.html', error="Sorry, only one game can run at a time!") 

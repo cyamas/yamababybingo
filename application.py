@@ -3,10 +3,7 @@ from flask_socketio import join_room, leave_room, send, SocketIO, emit
 from flask_redis import FlaskRedis
 import random
 import os
-from datetime import timedelta
-import time
 import json
-import threading
 
 
 application = Flask(__name__)
@@ -150,11 +147,16 @@ def winner(data):
     history = [item.decode('utf-8') for item in history]
     if set(candidate).issubset(history):
         rooms = []
-        socketio.emit("winningTeam", team)
+        socketio.emit("game_over", team)
         redis.flushdb()
     else:
         socketio.emit("invalid", team)
     return
+
+@socketio.on("abort")
+def abort(host):
+    socketio.emit("game_over", host)
+    redis.flushdb()
 
             
 if __name__ == '__main__':

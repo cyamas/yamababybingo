@@ -17,8 +17,9 @@ body {
     padding-top: 50px;
  }
 
-#join-form, #create-form{
+#create-form{
     display: none;
+    flex-direction: column;
     position: absolute;
     width: 320px;
     height: 320px;
@@ -29,6 +30,42 @@ body {
     justify-content: center;
     align-items: center;
     cursor: auto;
+}
+
+#join-form{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 320px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 120px;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+    cursor: auto;
+}
+
+#cancel{
+    display: flex;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    margin-top: 25px;
+    border-radius: 50%;
+    outline: 2px solid red;
+    cursor: url('bigHand.png'),auto;
+}
+
+#cancel-x{
+    color: red;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #welcome{
@@ -84,6 +121,15 @@ h1{
     height: 100%;
     font-size: 40px;
     padding-bottom: 260px;
+}
+
+#bingo-btn{
+    font-size: 64px;
+
+}
+
+#bingo-btn:hover{
+    font-size: 72px;
 }
 
 #board{
@@ -143,14 +189,14 @@ button{
     align-items: center;
     color: #003366;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 72px;
+    font-size: 56px;
     cursor: url('bigHand.png'),auto;
     transition: 0.5s;
 }
 
 button:hover{
     border: 3px solid #75bfec;
-    font-size: 84px;
+    font-size: 64px;
     box-shadow: 0px 0px 30px 25px #75bfec;
 }
 
@@ -223,6 +269,19 @@ button:hover{
     background-color: white;
 }
 
+#abort-game{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin-top: 30px;
+    margin-right: 30px;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: red;
+    border: 3px solid white;
+    font-size: 24px;
+}
 #host-menu{
     display: flex;
     flex-direction: column;

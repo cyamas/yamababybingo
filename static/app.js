@@ -14,10 +14,14 @@ socket.on('currXes', (xes) => {
     currXes = xes;
 })
 
-socket.on('winningTeam', (team) => {
-    gameOver = document.getElementById("game-over");
+socket.on('game_over', (name) => {
     gameOverMessage = document.getElementById("game-over-message");
-    gameOverMessage.innerHTML = "Team " + team + " has won!";
+    if (name === 'Host') {
+        gameOverMessage.innerHTML = "Host has ended the game."
+    } else {
+        gameOverMessage.innerHTML = "Team " + name + " has won!";
+    }
+    gameOver = document.getElementById("game-over");
     gameOver.style.display = "flex";
     document.getElementById("bingo-btn").disabled = true;
     document.getElementById("next-item-btn").disabled = true;
@@ -164,7 +168,11 @@ function bingoChecker(xes, card) {
 }
 
 function toggleForm(elem) {
-    elem.style.display = 'flex';
+    if(elem.style.display === 'flex'){
+        elem.style.display = 'none';
+    } else {
+        elem.style.display = 'flex';
+    }
     return
 }
 
@@ -177,4 +185,9 @@ function connectUser() {
 
 function exitGame() {
     window.location.href = '/';
+}
+
+function abortGame() {
+    socket.emit("abort", "Host");
+    return
 }

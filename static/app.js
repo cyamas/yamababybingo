@@ -14,8 +14,14 @@ socket.on('currXes', (xes) => {
     currXes = xes;
 })
 
-socket.on('winningTeam', (message) => {
-    alert(message['message']);
+socket.on('winningTeam', (team) => {
+    gameOver = document.getElementById("game-over");
+    gameOverMessage = document.getElementById("game-over-message");
+    gameOverMessage.innerHTML = "Team " + team + " has won!";
+    gameOver.style.display = "flex";
+    document.getElementById("bingo-btn").disabled = true;
+    document.getElementById("next-item-btn").disabled = true;
+    socket.close();
 })
 
 socket.on('invalid', (message) => {
@@ -169,3 +175,6 @@ function connectUser() {
     return
 }
 
+function exitGame() {
+    window.location.href = '/';
+}

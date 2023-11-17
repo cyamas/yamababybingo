@@ -271,3 +271,41 @@ h2, h3, h5{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 300;
 }
+
+#game-over{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    border-radius: 10%;
+    outline: 2px solid #003366;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+h6{
+    margin: 5px;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 300;
+}
+#game-over-message{
+    font-size: 22px;
+    font-weight: 600;
+    margin: 5px;
+    padding: 0;
+    
+}
+#exit-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #75bfec;
+    margin-top: 30px;
+    width: 144px;
+    height: 72px;
+    font-size: 24px;
+    border-radius: 10%;
+}

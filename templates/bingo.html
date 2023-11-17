@@ -12,8 +12,13 @@
     <div id="bingo-title">
         <div id="team-title">{{ team_name }}</div>
         <div class="yama-baby">YAMA</div>
-        <button type="button" onclick="checkBingo('{{ team_name }}', {{ card }})">BINGO!</button>
+        <button id="bingo-btn" type="button" onclick="checkBingo('{{ team_name }}', {{ card }})">BINGO!</button>
         <div class="yama-baby">BABY</div>
+    </div>
+    <div id="game-over">
+        <h6 id="game-over-message"></h6>
+        <h6 id="press-exit">Press exit to return to home page</h6>
+        <button id="exit-btn" type="button" onclick="exitGame()">EXIT</button>
     </div>
     <div id="board"></div>
     <div id="game-menu">

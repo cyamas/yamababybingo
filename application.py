@@ -13,9 +13,7 @@ application = Flask(__name__)
 
 application.secret_key = 'ybaambay012194'
 
-session
-
-application.config['REDIS_URL'] = 'redis://localhost:6379/0'
+application.config['REDIS_URL'] = 'redis://bingorediscluster.2rliyy.ng.0001.usw1.cache.amazonaws.com:6379'
 
 socketio = SocketIO(application, cors_allowed_origins="*")
 redis = FlaskRedis(application)
@@ -25,6 +23,7 @@ rooms = []
 
 @application.route('/')
 def home():
+    redis.set("room", "empty")
     return render_template('/home.html')
 
 
@@ -32,7 +31,12 @@ def home():
 def action():
     data = request.form.to_dict()
     if data['id'] == 'create':
-        return create_game(data['password'])
+        room = redis.get("room").decode('utf-8')
+        if room == "empty":
+            redis.set("room", data['password'])
+        else:
+            return render_template('/home.html', error="Sorry, only one game can run at a time!") 
+        return create_game()
     else:
         return join_game(data)
 
@@ -92,26 +96,23 @@ def play(team_name):
     return render_template('/bingo.html', card = bingo_card, xes = xes_list, team_name = team_name, curr = curr_item, prev = prev_item)
 
 
-def create_game(password):
-    if password not in rooms:
-        rooms.append(password)
-        redis.lpush('players', 'host')
-        redis.set('item_index', 0)
-        redis.set('curr', 'None')
-        redis.set('prev', 'None')
+def create_game():
+    redis.lpush('players', 'host')
+    redis.set('item_index', 0)
+    redis.set('curr', 'None')
+    redis.set('prev', 'None')
 
-        registry_length = len(os.listdir('static/gameImages'))-2
-        game_item_list = json.dumps(random.sample(range(0,registry_length-1), registry_length-1))
-        redis.set('item_order', game_item_list)
-        return redirect(url_for('host_game'))
-    else:
-        return render_template('/home.html', error="Try a different password!") 
+    registry_length = len(os.listdir('static/gameImages'))-2
+    game_item_list = json.dumps(random.sample(range(0,registry_length-1), registry_length-1))
+    redis.set('item_order', game_item_list)
+    return redirect(url_for('host_game'))
+ 
 
 #gets password from client and allows a user entrance into the game
 def join_game(data):
+    room = redis.get("room").decode('utf-8')
     team_list = redis.lrange('players', 0, -1) 
-    if data['password'] in rooms and data['team-name'] not in team_list:
-        session['password'] = data['password']
+    if data['password'] == room and data['team-name'] not in team_list:
         team = data['team-name']
         card =json.dumps(make_bingo_card())
         xes = json.dumps([0 for i in range(25)])
@@ -148,7 +149,9 @@ def winner(data):
     history = redis.lrange('item_history', 0, -1)
     history = [item.decode('utf-8') for item in history]
     if set(candidate).issubset(history):
-        socketio.emit("winningTeam", {'message': f" BINGOOOOOO!!! TEAM {team} HAS WON!!"})
+        rooms = []
+        socketio.emit("winningTeam", team)
+        redis.flushdb()
     else:
         socketio.emit("invalid", team)
     return

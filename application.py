@@ -10,8 +10,8 @@ application = Flask(__name__)
 
 application.secret_key = 'ybaambay012194'
 
-application.config['REDIS_URL'] = 'redis://bingorediscluster.2rliyy.ng.0001.usw1.cache.amazonaws.com:6379'
-#application.config['REDIS_URL'] = 'redis://127.0.0.1:6379'
+#application.config['REDIS_URL'] = 'redis://bingorediscluster.2rliyy.ng.0001.usw1.cache.amazonaws.com:6379'
+application.config['REDIS_URL'] = 'redis://127.0.0.1:6379'
 
 socketio = SocketIO(application, cors_allowed_origins="*")
 redis = FlaskRedis(application)
@@ -30,6 +30,7 @@ def action():
     if data['id'] == 'create':
         room = redis.exists('room')
         if not room:
+            redis.set("host", data['host-name'])
             redis.set("room", data['password'])
         else:
             return render_template('/home.html', error="Sorry, only one game can run at a time!") 
@@ -107,6 +108,8 @@ def create_game():
 
 #gets password from client and allows a user entrance into the game
 def join_game(data):
+    if not redis.exists("room"):
+        return render_template('/home.html', error="No game is currently being hosted")
     room = redis.get("room").decode('utf-8')
     team_list = redis.lrange('players', 0, -1) 
     if data['password'] == room and data['team-name'] not in team_list:
@@ -135,8 +138,11 @@ def make_bingo_card():
 def handle_connect(auth):
     return
 
-@socketio.on('team')
-def team_name(team):
+@socketio.on('host')
+def host_name(name):
+    host = redis.get("host").decode('utf-8')
+    print(host)
+    socketio.emit("host_name", host)
     return
 
 @socketio.on("winner")

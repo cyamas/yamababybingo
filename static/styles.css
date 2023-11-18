@@ -32,6 +32,16 @@ body {
     cursor: auto;
 }
 
+#cancel{
+    width: 36px;
+    height: 36px;
+    color: red;
+    background-color: white;
+    outline: 2 px solid red;
+    border-radius: 50%;
+    cursor: url('bigHand.png'),auto;
+}
+
 #welcome{
     width: 100%;
     font-size: 100px;

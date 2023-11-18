@@ -3,10 +3,7 @@ from flask_socketio import join_room, leave_room, send, SocketIO, emit
 from flask_redis import FlaskRedis
 import random
 import os
-from datetime import timedelta
-import time
 import json
-import threading
 
 
 application = Flask(__name__)
@@ -33,10 +30,11 @@ def action():
     if data['id'] == 'create':
         room = redis.exists('room')
         if not room:
+            redis.set("host_name", data['host-name'])
             redis.set("room", data['password'])
         else:
             return render_template('/home.html', error="Sorry, only one game can run at a time!") 
-        return create_game()
+        return create_game(data['host-name'])
     else:
         return join_game(data)
 
@@ -96,7 +94,7 @@ def play(team_name):
     return render_template('/bingo.html', card = bingo_card, xes = xes_list, team_name = team_name, curr = curr_item, prev = prev_item)
 
 
-def create_game():
+def create_game(host_name):
     redis.lpush('players', 'host')
     redis.set('item_index', 0)
     redis.set('curr', 'None')
@@ -110,6 +108,8 @@ def create_game():
 
 #gets password from client and allows a user entrance into the game
 def join_game(data):
+    if not redis.exists("room"):
+        return render_template('/home.html', error="No game is currently being hosted")
     room = redis.get("room").decode('utf-8')
     team_list = redis.lrange('players', 0, -1) 
     if data['password'] == room and data['team-name'] not in team_list:
@@ -138,9 +138,11 @@ def make_bingo_card():
 def handle_connect(auth):
     return
 
-@socketio.on('team')
-def team_name(team):
-    return
+@socketio.on("host")
+def displayName(host):
+    if host == "host":
+        host_name = redis.get("host_name").decode('utf-8')
+        socketio.emit("host_name", host_name)
 
 @socketio.on("winner")
 def winner(data):
@@ -150,11 +152,16 @@ def winner(data):
     history = [item.decode('utf-8') for item in history]
     if set(candidate).issubset(history):
         rooms = []
-        socketio.emit("winningTeam", team)
+        socketio.emit("game_over", team)
         redis.flushdb()
     else:
         socketio.emit("invalid", team)
     return
+
+@socketio.on("abort")
+def abort(host):
+    socketio.emit("game_over", host)
+    redis.flushdb()
 
             
 if __name__ == '__main__':

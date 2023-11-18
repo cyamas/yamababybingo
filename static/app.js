@@ -4,6 +4,12 @@ var socket = io({autoConnect: false});
 var currXes = [];
 for (i=0; i < 25; i++) {currXes.push(0)}; 
 
+socket.on('host_name', (host) => {
+    let hostDiv = document.getElementById('host-div');
+    hostDiv.innerHTML = host;
+    hostDiv.display = 'flex';
+})
+
 //Server emits image URLS to client for current and previous items drawn  
 socket.on('items', (items) => {
     $("#selected").css("background-image", "url(../" + items[0] + ")");
@@ -14,10 +20,14 @@ socket.on('currXes', (xes) => {
     currXes = xes;
 })
 
-socket.on('winningTeam', (team) => {
-    gameOver = document.getElementById("game-over");
+socket.on('game_over', (name) => {
     gameOverMessage = document.getElementById("game-over-message");
-    gameOverMessage.innerHTML = "Team " + team + " has won!";
+    if (name === 'Host') {
+        gameOverMessage.innerHTML = "Host has ended the game."
+    } else {
+        gameOverMessage.innerHTML = "Team " + name + " has won!";
+    }
+    gameOver = document.getElementById("game-over");
     gameOver.style.display = "flex";
     document.getElementById("bingo-btn").disabled = true;
     document.getElementById("next-item-btn").disabled = true;
@@ -122,7 +132,7 @@ function bingoChecker(xes, card) {
             rightDiag = []
             for (k = 0; k < 21; k += 4) {
                 if(xes[i+k] === 1) {
-                    rightDiag.push(card[i+j]);
+                    rightDiag.push(card[i+k]);
                 }else {
                     break;
                 }
@@ -164,17 +174,26 @@ function bingoChecker(xes, card) {
 }
 
 function toggleForm(elem) {
-    elem.style.display = 'flex';
+    if(elem.style.display === 'flex'){
+        elem.style.display = 'none';
+    } else {
+        elem.style.display = 'flex';
+    }
     return
 }
 
 function connectUser() {
     socket.connect();
-    var team = document.getElementById('team-title').innerHTML;
-    socket.emit("team", {'team': team});
+    var hostName = document.getElementById('host-div').innerHTML;
+    socket.emit("host", hostName);
     return
 }
 
 function exitGame() {
     window.location.href = '/';
+}
+
+function abortGame() {
+    socket.emit("abort", "Host");
+    return
 }

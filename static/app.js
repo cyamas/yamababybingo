@@ -4,12 +4,6 @@ var socket = io({autoConnect: false});
 var currXes = [];
 for (i=0; i < 25; i++) {currXes.push(0)}; 
 
-socket.on('host_name', (host) => {
-    let hostDiv = document.getElementById('host-div');
-    hostDiv.innerHTML = host;
-    hostDiv.display = 'flex';
-})
-
 //Server emits image URLS to client for current and previous items drawn  
 socket.on('items', (items) => {
     $("#selected").css("background-image", "url(../" + items[0] + ")");
@@ -132,7 +126,7 @@ function bingoChecker(xes, card) {
             rightDiag = []
             for (k = 0; k < 21; k += 4) {
                 if(xes[i+k] === 1) {
-                    rightDiag.push(card[i+k]);
+                    rightDiag.push(card[i+j]);
                 }else {
                     break;
                 }
@@ -184,8 +178,8 @@ function toggleForm(elem) {
 
 function connectUser() {
     socket.connect();
-    var hostName = document.getElementById('host-div').innerHTML;
-    socket.emit("host", hostName);
+    var team = document.getElementById('team-title').innerHTML;
+    socket.emit("team", {'team': team});
     return
 }
 
